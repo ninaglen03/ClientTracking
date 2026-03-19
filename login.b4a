@@ -1,0 +1,76 @@
+﻿Build1=Default,b4a.example
+File1=calendar.bal
+File2=dashboard.bal
+File3=login.bal
+File4=notifs.bal
+File5=signup.bal
+File6=todo.bal
+FileGroup1=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+FileGroup4=Default Group
+FileGroup5=Default Group
+FileGroup6=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=|relative|..\calendar
+Module2=dashboard
+Module3=notifs
+Module4=signup
+Module5=Starter
+Module6=todo
+NumberOfFiles=6
+NumberOfLibraries=2
+NumberOfModules=6
+Version=13.4
+@EndOfDesignText@
+#Region  Project Attributes 
+    #ApplicationLabel: B4A Example
+    #VersionCode: 1
+    #VersionName: 
+    #SupportedOrientations: unspecified
+    #CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+    #FullScreen: False
+    #IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	Private Button1 As Button
+	Private Button2 As Button
+	Private Button3 As Button
+    
+	Private EditText1 As EditText
+    
+	Private Panel1 As Panel
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("login")
+End Sub
+
+' LOGIN BUTTON
+Private Sub Button1_Click
+	Log("Login clicked")
+	StartActivity(signup) ' create this later
+End Sub
+
+' FORGOT PASSWORD BUTTON
+Private Sub Button2_Click
+	Log("Forgot Password clicked")
+	StartActivity(dashboard)
+End Sub
+
+' SIGN UP BUTTON
+Private Sub Button3_Click
+	Log("Sign Up clicked")
+	'StartActivity(SignUp)
+End Sub

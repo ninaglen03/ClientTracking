@@ -1,0 +1,11 @@
+# B4A auto-generated files
+Objects/
+
+# Compiled apps
+*.apk
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
