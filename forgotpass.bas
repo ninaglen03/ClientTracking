@@ -18,18 +18,13 @@ End Sub
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	'These variables can only be accessed from this module.
-    Private lblDashboard As Label
-    Private lblCalendar As Label
-    Private lblToDo As Label
-    Private lblNotifs As Label
+
 End Sub
 
-
 Sub Activity_Create(FirstTime As Boolean)
-	Activity.LoadLayout("todo")
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("forgotpass")
 
-	ResetNavColors
-	lblToDo.TextColor = Colors.Blue
 End Sub
 
 Sub Activity_Resume
@@ -38,23 +33,4 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
-End Sub
-
-Private Sub lblDashboard_Click
-	StartActivity(dashboard)
-End Sub
-
-Private Sub lblCalendar_Click
-	StartActivity(calendar)
-End Sub
-
-Private Sub lblNotifs_Click
-	StartActivity(notifs)
-End Sub
-
-Sub ResetNavColors
-	lblDashboard.TextColor = Colors.Gray
-	lblCalendar.TextColor = Colors.Gray
-	lblToDo.TextColor = Colors.Gray
-	lblNotifs.TextColor = Colors.Gray
 End Sub
