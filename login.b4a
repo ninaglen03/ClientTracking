@@ -1,20 +1,29 @@
 ﻿Build1=Default,b4a.example
 File1=calendar.bal
 File2=dashboard.bal
-File3=login.bal
-File4=notifs.bal
-File5=signup.bal
-File6=todo.bal
+File3=forgotpass.bal
+File4=login.bal
+File5=notifs.bal
+File6=profile.bal
+File7=project.bal
+File8=signup.bal
+File9=todo.bal
 FileGroup1=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
 FileGroup5=Default Group
 FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
+FileGroup9=Default Group
 Group=Default Group
-Library1=core
-Library2=xui
+Library1=b4xdrawer
+Library2=core
+Library3=xui
+Library4=okhttputils2
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+<<<<<<< HEAD
 Module1=dashboard
 Module2=notifs
 Module3=signup
@@ -23,6 +32,20 @@ Module5=todo
 NumberOfFiles=6
 NumberOfLibraries=2
 NumberOfModules=5
+=======
+Module1=|relative|..\calendar
+Module2=dashboard
+Module3=forgotpass
+Module4=notifs
+Module5=profile
+Module6=project
+Module7=signup
+Module8=Starter
+Module9=todo
+NumberOfFiles=9
+NumberOfLibraries=4
+NumberOfModules=9
+>>>>>>> 14a056c8b9b7403b90e18f3bc836d45421c174c1
 Version=13.4
 @EndOfDesignText@
 #Region  Project Attributes 
@@ -52,24 +75,51 @@ Sub Globals
 	Private Panel1 As Panel
 End Sub
 
+Sub LoginUser(username As String, password As String)
+	Dim job As HttpJob
+	job.Initialize("login", Me)
+    
+	Dim params As Map
+	params.Initialize
+	params.Put("username", username)
+	params.Put("password", password)
+    
+	job.PostMultipart("http://192.168.8.166//login.php", params, Null)
+End Sub
+
+Sub JobDone(job As HttpJob)
+	If job.Success Then
+		If job.JobName = "login" Then
+			If job.GetString = "success" Then
+				ToastMessageShow("Login Success", False)
+			Else
+				ToastMessageShow("Login Failed", False)
+			End If
+		End If
+	Else
+		ToastMessageShow("Server Error", False)
+	End If
+	job.Release
+End Sub
+
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("login")
 End Sub
 
 ' LOGIN BUTTON
 Private Sub Button1_Click
-	Log("Login clicked")
+	'Log("Login clicked")
 	StartActivity(signup) ' create this later
 End Sub
 
 ' FORGOT PASSWORD BUTTON
 Private Sub Button2_Click
-	Log("Forgot Password clicked")
+	'Log("Forgot Password clicked")
 	StartActivity(dashboard)
 End Sub
 
 ' SIGN UP BUTTON
 Private Sub Button3_Click
-	Log("Sign Up clicked")
-	'StartActivity(SignUp)
+	'Log("Sign Up clicked")
+	StartActivity(forgotpass)
 End Sub

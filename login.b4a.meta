@@ -4,18 +4,44 @@ ModuleBookmarks2=
 ModuleBookmarks3=
 ModuleBookmarks4=
 ModuleBookmarks5=
+<<<<<<< HEAD
+=======
+ModuleBookmarks6=
+ModuleBookmarks7=
+ModuleBookmarks8=
+ModuleBookmarks9=
+>>>>>>> 14a056c8b9b7403b90e18f3bc836d45421c174c1
 ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleBreakpoints2=
 ModuleBreakpoints3=
 ModuleBreakpoints4=
 ModuleBreakpoints5=
+<<<<<<< HEAD
+=======
+ModuleBreakpoints6=
+ModuleBreakpoints7=
+ModuleBreakpoints8=
+ModuleBreakpoints9=
+>>>>>>> 14a056c8b9b7403b90e18f3bc836d45421c174c1
 ModuleClosedNodes0=
 ModuleClosedNodes1=
 ModuleClosedNodes2=
 ModuleClosedNodes3=
+<<<<<<< HEAD
 ModuleClosedNodes4=1
 ModuleClosedNodes5=
 NavigationStack=Visual Designer,login.bal,-100,3,Visual Designer,dashboard.bal,-100,6,notifs,Globals,21,0,todo,Activity_Pause,30,0,todo,Label25_Click,32,1,todo,Activity_Create,21,0,todo,Activity_Resume,25,0,notifs,Activity_Pause,46,0,dashboard,Label2_Click,80,0,dashboard,Button1_Click,77,0
 SelectedBuild=0
 VisibleModules=3,1,5,2
+=======
+ModuleClosedNodes4=
+ModuleClosedNodes5=
+ModuleClosedNodes6=
+ModuleClosedNodes7=
+ModuleClosedNodes8=1
+ModuleClosedNodes9=
+NavigationStack=Main,Process_Globals,13,0,Main,Button1_Click,33,0,Main,Button3_Click,46,1,Main,Button2_Click,41,0,Visual Designer,forgotpass.bal,-100,5,Visual Designer,login.bal,-100,6,forgotpass,Activity_Create,19,1,Main,Globals,27,0,Main,JobDone,39,0,Main,LoginUser,27,0
+SelectedBuild=0
+VisibleModules=7,2,1,9,4,5,6,3
+>>>>>>> 14a056c8b9b7403b90e18f3bc836d45421c174c1
