@@ -1,14 +1,20 @@
 ﻿Build1=Default,b4a.example
 File1=calendar.bal
+File10=tlmessage.bal
+File11=tlsignup.bal
+File12=todo.bal
 File2=dashboard.bal
 File3=forgotpass.bal
 File4=login.bal
-File5=notifs.bal
-File6=profile.bal
-File7=project.bal
-File8=signup.bal
-File9=todo.bal
+File5=network_security_config.xml
+File6=notifs.bal
+File7=profile.bal
+File8=project.bal
+File9=signup.bal
 FileGroup1=Default Group
+FileGroup10=Default Group
+FileGroup11=Default Group
+FileGroup12=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
@@ -20,95 +26,112 @@ FileGroup9=Default Group
 Group=Default Group
 Library1=b4xdrawer
 Library2=core
-Library3=xui
+Library3=javaobject
 Library4=okhttputils2
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
-Module1=|relative|..\calendar
-Module2=dashboard
-Module3=forgotpass
-Module4=notifs
-Module5=profile
-Module6=project
-Module7=signup
-Module8=Starter
-Module9=todo
-NumberOfFiles=9
-NumberOfLibraries=4
-NumberOfModules=9
+Library5=phone
+Library6=xui
+Library7=stringutils
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35"/>~\n~    <uses-permission android:name="android.permission.INTERNET"/>~\n~    <supports-screens android:largeScreens="true"~\n~                      android:normalScreens="true"~\n~                      android:smallScreens="true"~\n~                      android:anyDensity="true"/>)~\n~~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~SetApplicationAttribute(android:usesCleartextTraffic, "true")
+Module1=AppState
+Module10=tlmessage
+Module11=tlsignup
+Module12=todo
+Module2=|relative|..\calendar
+Module3=dashboard
+Module4=forgotpass
+Module5=notifs
+Module6=profile
+Module7=project
+Module8=signup
+Module9=Starter
+NumberOfFiles=12
+NumberOfLibraries=7
+NumberOfModules=12
 Version=13.4
 @EndOfDesignText@
-#Region  Project Attributes 
-    #ApplicationLabel: B4A Example
-    #VersionCode: 1
-    #VersionName: 
-    #SupportedOrientations: unspecified
-    #CanInstallToExternalStorage: False
-#End Region
+	#Region  Project Attributes 
+	    #ApplicationLabel: B4A Example
+	    #VersionCode: 1
+	    #VersionName: 
+	    #SupportedOrientations: unspecified
+	    #CanInstallToExternalStorage: False
+	#End Region
+	#Region  Activity Attributes 
+	    #FullScreen: False
+	    #IncludeTitle: False
+	#End Region
 
-#Region  Activity Attributes 
-    #FullScreen: False
-    #IncludeTitle: False
-#End Region
+	Sub Process_Globals
+		Private xui As XUI
+		Private Const SERVER_URL As String = "http://192.168.8.177:8001/Executioner/login.php"
+	End Sub
 
-Sub Process_Globals
-	Private xui As XUI
+	Sub Globals
+		Private Button1 As Button
+		Private Button2 As Button
+		Private Button3 As Button
+
+		Private EditText1 As EditText
+		Private EditText3 As EditText   ' username/email
+		Private EditText2 As EditText   ' password
+
+		Private Panel1 As Panel
+	End Sub
+
+	Sub Activity_Create(FirstTime As Boolean)
+		Activity.LoadLayout("login")
+	End Sub
+
+	Sub LoginUser(username As String, password As String)
+    Dim job As HttpJob
+    job.Initialize("login", Me)
+
+    Dim params As Map
+    params.Initialize
+    params.Put("username", username)
+    params.Put("password", password)
+
+    job.PostMultipart(SERVER_URL, params, Null)
 End Sub
 
-Sub Globals
-	Private Button1 As Button
-	Private Button2 As Button
-	Private Button3 As Button
-    
-	Private EditText1 As EditText
-    
-	Private Panel1 As Panel
-End Sub
-
-Sub LoginUser(username As String, password As String)
-	Dim job As HttpJob
-	job.Initialize("login", Me)
-    
-	Dim params As Map
-	params.Initialize
-	params.Put("username", username)
-	params.Put("password", password)
-    
-	job.PostMultipart("http://192.168.8.166//login.php", params, Null)
-End Sub
-
-Sub JobDone(job As HttpJob)
-	If job.Success Then
+	Sub JobDone(job As HttpJob)
 		If job.JobName = "login" Then
-			If job.GetString = "success" Then
-				ToastMessageShow("Login Success", False)
+			If job.Success Then
+				Dim response As String = job.GetString.Trim.ToLowerCase
+				Log("Response: " & response)
+
+				If response = "success" Then
+					ToastMessageShow("Login Success", False)
+					StartActivity(dashboard)
+					Activity.Finish
+				Else
+					ToastMessageShow("Login Failed", False)
+				End If
 			Else
-				ToastMessageShow("Login Failed", False)
+				Log("Error: " & job.ErrorMessage)
+				ToastMessageShow("Server Error: " & job.ErrorMessage, True)
 			End If
 		End If
-	Else
-		ToastMessageShow("Server Error", False)
-	End If
-	job.Release
-End Sub
 
-Sub Activity_Create(FirstTime As Boolean)
-	Activity.LoadLayout("login")
-End Sub
+		job.Release
+	End Sub
 
-' LOGIN BUTTON
-Private Sub Button1_Click
-	'Log("Login clicked")
-	StartActivity(signup) ' create this later
-End Sub
+	Private Sub Button1_Click
+		StartActivity(signup)
+	End Sub
 
-' FORGOT PASSWORD BUTTON
-Private Sub Button2_Click
-	'Log("Forgot Password clicked")
-	StartActivity(dashboard)
-End Sub
+	Private Sub Button2_Click   ' LOGIN BUTTON
+		Dim username As String = EditText3.Text.Trim
+		Dim password As String = EditText2.Text
 
-' SIGN UP BUTTON
-Private Sub Button3_Click
-	'Log("Sign Up clicked")
-	StartActivity(forgotpass)
-End Sub
+		If username = "" Or password = "" Then
+			ToastMessageShow("Please enter username and password", False)
+			Return
+		End If
+
+		LoginUser(username, password)
+	End Sub
+
+	Private Sub Button3_Click
+		StartActivity(forgotpass)
+	End Sub
