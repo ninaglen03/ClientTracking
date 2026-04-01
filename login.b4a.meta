@@ -25,6 +25,6 @@ ModuleClosedNodes5=
 ModuleClosedNodes6=
 ModuleClosedNodes7=1
 ModuleClosedNodes8=
-NavigationStack=todo,Activity_Pause,30,0,todo,Activity_Create,21,0,todo,Activity_Resume,25,0,notifs,Activity_Pause,46,0,dashboard,Button1_Click,77,0,Main,Globals,48,0,ClientDashboard,Globals,14,0,Visual Designer,ClientDashboard.bal,-100,5,ClientDashboard,Activity_Pause,30,0,Visual Designer,ClientProjectView.bal,-100,2,Visual Designer,ProjectDetailsView.bal,-100,2
+NavigationStack=notifs,Activity_Pause,46,0,dashboard,Button1_Click,77,0,Main,Globals,48,0,ClientDashboard,Globals,14,0,ClientDashboard,Activity_Pause,30,0,Visual Designer,ClientProjectView.bal,-100,6,ProjectDetailsView,Process_Globals,8,0,Visual Designer,ProjectDetailsViewClient.bal,-100,6,Visual Designer,ClientDashboard.bal,-100,6
 SelectedBuild=0
 VisibleModules=6,3,8,4,1,2,5
