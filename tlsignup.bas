@@ -13,19 +13,15 @@ Sub Process_Globals
 End Sub
 
 Sub Globals
-	Private Button1 As Button            ' Submit
-	Private Button2 As Button            ' Go to Team Lead Signup
+	Private Button1 As Button            ' Verify your Account
 	Private EditText1 As EditText        ' First Name
 	Private EditText2 As EditText        ' Last Name
 	Private EditText3 As EditText        ' Email
 	Private EditText4 As EditText        ' Password
-	Private Label1 As Label
-	Private Panel1 As Panel
-	Private Panel2 As Panel
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-	Activity.LoadLayout("signup")
+	Activity.LoadLayout("tlsignup")
 End Sub
 
 Sub Activity_Resume
@@ -53,7 +49,7 @@ Private Sub Button1_Click
 	Dim fullName As String = firstName & " " & lastName
 
 	Button1.Enabled = False
-	ProgressDialogShow("Creating account...")
+	ProgressDialogShow("Submitting lead application...")
 
 	Dim postData As String
 	postData = "name=" & UrlEncode(fullName) & _
@@ -61,8 +57,8 @@ Private Sub Button1_Click
                "&password=" & UrlEncode(password)
 
 	Dim j As HttpJob
-	j.Initialize("member_signup", Me)
-	j.PostString("http://192.168.8.177:8001/Executioner/signup.php", postData)
+	j.Initialize("lead_signup", Me)
+	j.PostString("http://192.168.8.177:8001/Executioner/lead_signup.php", postData)
 	j.GetRequest.SetContentType("application/x-www-form-urlencoded")
 End Sub
 
@@ -70,13 +66,13 @@ Sub JobDone(Job As HttpJob)
 	ProgressDialogHide
 	Button1.Enabled = True
 
-	If Job.JobName = "member_signup" Then
+	If Job.JobName = "lead_signup" Then
 		If Job.Success Then
 			Dim res As String = Job.GetString.Trim.ToLowerCase
 
 			Select res
 				Case "success"
-					ToastMessageShow("Sign-up successful. You can now log in.", False)
+					StartActivity(tlmessage)
 					Activity.Finish
 
 				Case "exists"
@@ -86,7 +82,7 @@ Sub JobDone(Job As HttpJob)
 					ToastMessageShow("Password is too weak (minimum 6 characters).", False)
 
 				Case Else
-					ToastMessageShow("Sign-up failed: " & res, False)
+					ToastMessageShow("Submission failed: " & res, False)
 			End Select
 		Else
 			ToastMessageShow("Network error: " & Job.ErrorMessage, True)
@@ -99,8 +95,4 @@ End Sub
 Private Sub UrlEncode(s As String) As String
 	Dim su As StringUtils
 	Return su.EncodeUrl(s, "UTF8")
-End Sub
-
-Private Sub Button2_Click
-	StartActivity(tlsignup)
 End Sub
